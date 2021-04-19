@@ -1,0 +1,39 @@
+#include <Servo.h>
+int x = A0;
+int y = A1; 
+int xSpin = 3;
+int ySpin = 5;  
+int WVx;
+int WVy;    
+int xVal;
+int yVal; 
+int dt = 200;
+Servo xServo;
+Servo yServo;
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(x, INPUT);
+pinMode(y, INPUT);
+pinMode(xSpin, OUTPUT);
+pinMode(ySpin, OUTPUT);
+xServo.attach(xSpin);
+yServo.attach(ySpin);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+xVal = analogRead(x);
+WVx = (180./1023.)*xVal;
+yVal = analogRead(y);
+WVy = (180./1023.)*yVal;      
+xServo.write(WVx);
+yServo.write(WVy);
+
+delay(dt);
+Serial.print("x Value = ");
+Serial.print(xVal );
+Serial.print(" y value = ");
+Serial.print(yVal );
+}
